@@ -31,7 +31,26 @@ static __inline__ void __list_add(LIST_HEAD_ST *new,
 }
 
 
+void list_add(LIST_HEAD_ST *new, LIST_HEAD_ST *head)
+{
+    __list_add(new, head,head->next);
+}
 
+void list_add_tail(LIST_HEAD_ST *new, LIST_HEAD_ST *head)
+{
+    __list_add(new,head->prev,head);
+}
+
+static __inline__ void __list_del(LIST_HEAD_ST *prev, LIST_HEAD_ST *next)
+{
+    next->prev = prev;
+    prev->next = next; 
+}
+
+void list_del(LIST_HEAD_ST *entry)
+{
+    __list_del(entry->prev, entry->next);
+}
 
 
 #endif
